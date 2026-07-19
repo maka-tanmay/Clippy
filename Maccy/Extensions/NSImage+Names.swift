@@ -6,6 +6,7 @@ extension NSImage {
   static let paintpalette = NSImage(systemSymbolName: "paintpalette", accessibilityDescription: "paintpalette")
   static let pincircle = NSImage(systemSymbolName: "pin.circle", accessibilityDescription: "pin.cirlce")
   static let nosign = NSImage(systemSymbolName: "nosign", accessibilityDescription: "nosign")
+  static let doconclipboard = NSImage(systemSymbolName: "doc.on.clipboard", accessibilityDescription: "doc.on.clipboard")
   static let gearshape2 = NSImage(systemSymbolName: "gearshape.2", accessibilityDescription: "gearshape2")
 }
 

@@ -1,0 +1,66 @@
+name: Release
+
+# Tag a version (e.g. `git tag 0.1.0 && git push --tags`) to build, sign,
+# notarize, and publish a release. Requires the secrets listed in RELEASING.md.
+on:
+  push:
+    tags: ['*']
+
+jobs:
+  release:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Import Developer ID certificate
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.BUILD_CERTIFICATE_BASE64 }}
+          P12_PASSWORD: ${{ secrets.P12_PASSWORD }}
+        run: |
+          KEYCHAIN=$RUNNER_TEMP/build.keychain
+          security create-keychain -p ci $KEYCHAIN
+          security default-keychain -s $KEYCHAIN
+          security unlock-keychain -p ci $KEYCHAIN
+          echo "$BUILD_CERTIFICATE_BASE64" | base64 --decode > $RUNNER_TEMP/cert.p12
+          security import $RUNNER_TEMP/cert.p12 -k $KEYCHAIN -P "$P12_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k ci $KEYCHAIN
+
+      - name: Build Release
+        env:
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+        run: |
+          xcodebuild -project Maccy.xcodeproj -scheme Maccy -configuration Release \
+            -destination 'platform=macOS' -derivedDataPath build \
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Developer ID Application" \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
+            build
+
+      - name: Notarize and staple
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+          TEAM_ID: ${{ secrets.TEAM_ID }}
+        run: |
+          cd build/Build/Products/Release
+          ditto -c -k --keepParent Clippy.app Clippy.app.zip
+          xcrun notarytool submit Clippy.app.zip --apple-id "$APPLE_ID" \
+            --password "$APP_PASSWORD" --team-id "$TEAM_ID" --wait
+          xcrun stapler staple Clippy.app
+          ditto -c -k --keepParent Clippy.app Clippy.app.zip
+
+      - name: Generate appcast entry
+        env:
+          SPARKLE_ED_PRIVATE_KEY: ${{ secrets.SPARKLE_ED_PRIVATE_KEY }}
+        run: |
+          # generate_appcast ships with the Sparkle SPM artifact bundle
+          SPARKLE_BIN=$(find ~/Library/Developer/Xcode/DerivedData $PWD/build -path '*artifacts/sparkle*/bin/generate_appcast' -print -quit)
+          [ -z "$SPARKLE_BIN" ] && { curl -sL -o sparkle.tar.xz https://github.com/sparkle-project/Sparkle/releases/download/2.6.4/Sparkle-2.6.4.tar.xz; mkdir sparkle-dist; tar -xf sparkle.tar.xz -C sparkle-dist; SPARKLE_BIN=sparkle-dist/bin/generate_appcast; }
+          mkdir -p release && cp build/Build/Products/Release/Clippy.app.zip release/
+          echo "$SPARKLE_ED_PRIVATE_KEY" | "$SPARKLE_BIN" --ed-key-file - release/
+          cat release/appcast.xml
+
+      - name: Upload release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/Build/Products/Release/Clippy.app.zip

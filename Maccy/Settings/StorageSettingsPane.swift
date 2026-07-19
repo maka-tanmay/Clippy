@@ -58,14 +58,25 @@ struct StorageSettingsPane: View {
 
   @Default(.size) private var size
   @Default(.sortBy) private var sortBy
+  @Default(.detectSecrets) private var detectSecrets
+  @Default(.expireAfterMinutes) private var expireAfterMinutes
+  @Default(.expireRegexps) private var expireRegexps
 
   @State private var viewModel = ViewModel()
   @State private var storageSize = Storage.shared.size
+  @State private var expireRegexpsText = ""
 
   private let sizeFormatter: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.minimum = 1
     formatter.maximum = 999
+    return formatter
+  }()
+
+  private let minutesFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.minimum = 1
+    formatter.maximum = 1440
     return formatter
   }()
 
@@ -109,7 +120,10 @@ struct StorageSettingsPane: View {
         }
       }
 
-      Settings.Section(label: { Text("SortBy", tableName: "StorageSettings") }) {
+      Settings.Section(
+        bottomDivider: true,
+        label: { Text("SortBy", tableName: "StorageSettings") }
+      ) {
         Picker("", selection: $sortBy) {
           ForEach(Sorter.By.allCases) { mode in
             Text(mode.description)
@@ -118,6 +132,42 @@ struct StorageSettingsPane: View {
         .labelsHidden()
         .frame(width: 160, alignment: .leading)
         .help(Text("SortByTooltip", tableName: "StorageSettings"))
+      }
+
+      Settings.Section(label: { Text("privacy_section_label", tableName: "Localizable") }) {
+        Toggle(
+          isOn: $detectSecrets,
+          label: { Text("detect_secrets_toggle", tableName: "Localizable") }
+        )
+
+        HStack {
+          Text("expire_rules_label", tableName: "Localizable")
+          TextField("", value: $expireAfterMinutes, formatter: minutesFormatter)
+            .frame(width: 50)
+          Text("expire_rules_minutes", tableName: "Localizable")
+        }
+
+        TextField(
+          "",
+          text: $expireRegexpsText,
+          prompt: Text(verbatim: "^\\d{6}$"),
+          axis: .vertical
+        )
+        .lineLimit(3...5)
+        .onChange(of: expireRegexpsText) {
+          expireRegexps = expireRegexpsText
+            .split(separator: "\n")
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty }
+        }
+        .onAppear {
+          expireRegexpsText = expireRegexps.joined(separator: "\n")
+        }
+
+        Text("privacy_section_description", tableName: "Localizable")
+          .controlSize(.small)
+          .foregroundStyle(.gray)
+          .fixedSize(horizontal: false, vertical: true)
       }
     }
   }

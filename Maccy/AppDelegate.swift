@@ -38,6 +38,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     AppState.shared.appDelegate = self
 
     Clipboard.shared.onNewCopy { History.shared.add($0) }
+
+    KeyboardShortcuts.onKeyUp(for: .captureRegion) {
+      Task { @MainActor in
+        ScreenCapture.shared.captureRegion()
+      }
+    }
+
+    // Snippet shortcuts: the pin set is small and fixed, so register every
+    // possible pin once and resolve the pinned item at fire time.
+    for pin in HistoryItem.supportedPins {
+      KeyboardShortcuts.onKeyUp(for: .snippet(pin)) {
+        Task { @MainActor in
+          guard let snippet = History.shared.all.first(where: { $0.item.pin == pin }) else { return }
+          Clipboard.shared.copy(snippet.item, removeFormatting: Defaults[.removeFormattingByDefault])
+          Clipboard.shared.paste()
+        }
+      }
+    }
     Clipboard.shared.start()
 
     Task {
@@ -94,7 +112,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     panel = FloatingPanel(
       contentRect: NSRect(origin: .zero, size: Defaults[.windowSize]),
-      identifier: Bundle.main.bundleIdentifier ?? "org.p0deje.Maccy",
+      identifier: Bundle.main.bundleIdentifier ?? "com.tanmaymaka.clippy",
       statusBarButton: statusItem.button,
       onClose: { AppState.shared.popup.reset() }
     ) {

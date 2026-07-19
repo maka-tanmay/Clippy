@@ -11,7 +11,7 @@ import SwiftData
 @Observable
 class History: ItemsContainer { // swiftlint:disable:this type_body_length
   static let shared = History()
-  let logger = Logger(label: "org.p0deje.Maccy")
+  let logger = Logger(label: "com.tanmaymaka.clippy")
 
   var items: [HistoryItemDecorator] = []
   var pasteStack: PasteStack?
@@ -22,7 +22,9 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
   var searchQuery: String = "" {
     didSet {
       throttler.throttle { [self] in
-        updateItems(search.search(string: searchQuery, within: all))
+        let (typeFilter, query) = ContentType.parse(query: searchQuery)
+        let scope = typeFilter.map { type in all.filter { $0.contentType == type } } ?? all
+        updateItems(search.search(string: query, within: scope))
 
         if searchQuery.isEmpty {
           AppState.shared.navigator.select(item: unpinnedItems.first)
@@ -101,6 +103,9 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
     }
   }
 
+  @ObservationIgnored
+  private var expirySweeper: Timer?
+
   @MainActor
   func load() async throws {
     let descriptor = FetchDescriptor<HistoryItem>()
@@ -109,11 +114,44 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
     items = all
 
     limitHistorySize(to: Defaults[.size])
+    startExpirySweeper()
 
     updateShortcuts()
     // Ensure that panel size is proper *after* loading all items.
     Task {
       AppState.shared.popup.needsResize = true
+    }
+  }
+
+  @MainActor
+  private func startExpirySweeper() {
+    guard expirySweeper == nil else { return }
+
+    sweepExpired()
+    expirySweeper = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
+      Task { @MainActor in
+        History.shared.sweepExpired()
+      }
+    }
+  }
+
+  @MainActor
+  func sweepExpired() {
+    let now = Date.now
+    let expired = all.filter { decorator in
+      guard let expiresAt = decorator.item.expiresAt else { return false }
+      return expiresAt <= now
+    }
+    guard !expired.isEmpty else { return }
+
+    for decorator in expired {
+      logger.info("Expiring item '\(decorator.item.title)'")
+      // Shred the live clipboard too if it still holds the expired content,
+      // regardless of the clearSystemClipboard setting — that's the point.
+      if let text = decorator.item.text, NSPasteboard.general.string(forType: .string) == text {
+        NSPasteboard.general.clearContents()
+      }
+      delete(decorator)
     }
   }
 
@@ -160,6 +198,16 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
       removedItemIndex = all.firstIndex(where: { $0.item == existingHistoryItem })
       if let removedItemIndex {
         all.remove(at: removedItemIndex)
+      }
+
+      // Suggest pinning once, when the item crosses the repeat-copy threshold.
+      if item.pin == nil && item.numberOfCopies == 5 {
+        Task {
+          Notifier.notify(
+            body: String(format: NSLocalizedString("pin_suggestion", comment: ""), item.title.shortened(to: 40)),
+            sound: nil
+          )
+        }
       }
     } else {
       Task {

@@ -100,6 +100,12 @@
 		DA689FCC2C1D1D510009B887 /* MenuIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA689FCB2C1D1D510009B887 /* MenuIcon.swift */; };
 		DA689FCF2C1DEE570009B887 /* AppearanceSettings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA689FCD2C1DEE570009B887 /* AppearanceSettings.strings */; };
 		DA696BCE240177E800DE80CF /* Sorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA696BCD240177E800DE80CF /* Sorter.swift */; };
+		FADE0002000000000000C11A /* PasteTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0001000000000000C11A /* PasteTransform.swift */; };
+		FADE0008000000000000C11A /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0007000000000000C11A /* Capture.swift */; };
+		FADE000A000000000000C11A /* PrivacyGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0009000000000000C11A /* PrivacyGuard.swift */; };
+		FADE000E000000000000C11A /* AIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE000D000000000000C11A /* AIAction.swift */; };
+		FADE000C000000000000C11A /* PrivacyGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE000B000000000000C11A /* PrivacyGuardTests.swift */; };
+		FADE0004000000000000C11A /* PasteTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0003000000000000C11A /* PasteTransformTests.swift */; };
 		DA696BD22401EEE900DE80CF /* SorterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA696BD12401EEE900DE80CF /* SorterTests.swift */; };
 		DA6D98E22AEABE03008A77CE /* Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6D98E12AEABE03008A77CE /* Accessibility.swift */; };
 		DA740D7A2C21E6B0007B1A36 /* AdvancedSettings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA740D782C21E6B0007B1A36 /* AdvancedSettings.strings */; };
@@ -125,6 +131,7 @@
 		DAA072E72C423617006DDFD2 /* NSSize+DefaultsSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA072E62C423617006DDFD2 /* NSSize+DefaultsSerializable.swift */; };
 		DAA072E92C42C6AA006DDFD2 /* ListItemTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA072E82C42C6AA006DDFD2 /* ListItemTitleView.swift */; };
 		DAA365CE2C4BF9DD00A394F8 /* PinsSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA365CD2C4BF9DD00A394F8 /* PinsSettingsPane.swift */; };
+		FADE0006000000000000C11A /* PasteSettingsPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0005000000000000C11A /* PasteSettingsPane.swift */; };
 		DAA365D12C4C147400A394F8 /* PinsSettings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAA365CF2C4C147400A394F8 /* PinsSettings.strings */; };
 		DAA365E72C4C57E600A394F8 /* KeyEquivalent+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA365E62C4C57E600A394F8 /* KeyEquivalent+Keys.swift */; };
 		DAA54BFA2C3C951900B7FDD8 /* FloatingPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA54BF92C3C951900B7FDD8 /* FloatingPanel.swift */; };
@@ -392,6 +399,12 @@
 		DA689FE02C1DEE6B0009B887 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/AppearanceSettings.strings; sourceTree = "<group>"; };
 		DA689FE12C1DEE6C0009B887 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/AppearanceSettings.strings; sourceTree = "<group>"; };
 		DA696BCD240177E800DE80CF /* Sorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sorter.swift; sourceTree = "<group>"; };
+		FADE0001000000000000C11A /* PasteTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteTransform.swift; sourceTree = "<group>"; };
+		FADE0007000000000000C11A /* Capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capture.swift; sourceTree = "<group>"; };
+		FADE0009000000000000C11A /* PrivacyGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyGuard.swift; sourceTree = "<group>"; };
+		FADE000D000000000000C11A /* AIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAction.swift; sourceTree = "<group>"; };
+		FADE000B000000000000C11A /* PrivacyGuardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyGuardTests.swift; sourceTree = "<group>"; };
+		FADE0003000000000000C11A /* PasteTransformTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteTransformTests.swift; sourceTree = "<group>"; };
 		DA696BD12401EEE900DE80CF /* SorterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorterTests.swift; sourceTree = "<group>"; };
 		DA6D98E12AEABE03008A77CE /* Accessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessibility.swift; sourceTree = "<group>"; };
 		DA740D792C21E6B0007B1A36 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AdvancedSettings.strings; sourceTree = "<group>"; };
@@ -466,6 +479,7 @@
 		DAA072E82C42C6AA006DDFD2 /* ListItemTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemTitleView.swift; sourceTree = "<group>"; };
 		DAA2BDCE24676CA7007FE090 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DAA365CD2C4BF9DD00A394F8 /* PinsSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinsSettingsPane.swift; sourceTree = "<group>"; };
+		FADE0005000000000000C11A /* PasteSettingsPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteSettingsPane.swift; sourceTree = "<group>"; };
 		DAA365D02C4C147400A394F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PinsSettings.strings; sourceTree = "<group>"; };
 		DAA365D22C4C147C00A394F8 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/PinsSettings.strings; sourceTree = "<group>"; };
 		DAA365D32C4C147D00A394F8 /* bs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bs; path = bs.lproj/PinsSettings.strings; sourceTree = "<group>"; };
@@ -661,6 +675,7 @@
 				DA44C5E32C1C858400819834 /* StorageSettingsPane.swift */,
 				DA689FAE2C1CD3B00009B887 /* StorageSettings.strings */,
 				DAA365CD2C4BF9DD00A394F8 /* PinsSettingsPane.swift */,
+				FADE0005000000000000C11A /* PasteSettingsPane.swift */,
 				DAA365CF2C4C147400A394F8 /* PinsSettings.strings */,
 			);
 			path = Settings;
@@ -723,6 +738,8 @@
 				DAFE2DE8268A9B1B00990986 /* HistoryItemTests.swift */,
 				DA384E85232746D800603999 /* SearchTests.swift */,
 				DA696BD12401EEE900DE80CF /* SorterTests.swift */,
+				FADE0003000000000000C11A /* PasteTransformTests.swift */,
+				FADE000B000000000000C11A /* PrivacyGuardTests.swift */,
 				DA360DB41E3DF137005C6F6B /* Info.plist */,
 			);
 			path = MaccyTests;
@@ -836,6 +853,10 @@
 				2F0EC77C2E773314003E2EA9 /* Selection.swift */,
 				DAA5ACC92C1BEE8A00B58513 /* SoftwareUpdater.swift */,
 				DA696BCD240177E800DE80CF /* Sorter.swift */,
+				FADE0001000000000000C11A /* PasteTransform.swift */,
+				FADE0007000000000000C11A /* Capture.swift */,
+				FADE0009000000000000C11A /* PrivacyGuard.swift */,
+				FADE000D000000000000C11A /* AIAction.swift */,
 				DA243D132C2F66DD0012A27F /* Storage.swift */,
 				DA81D673252A056B009977BC /* Throttler.swift */,
 				DAB8CE4024E3677F00A2500E /* Maccy.entitlements */,
@@ -1063,6 +1084,8 @@
 				DAE2850223225BD90080E394 /* ColorImageTests.swift in Sources */,
 				DA384E86232746D800603999 /* SearchTests.swift in Sources */,
 				DA696BD22401EEE900DE80CF /* SorterTests.swift in Sources */,
+				FADE0004000000000000C11A /* PasteTransformTests.swift in Sources */,
+				FADE000C000000000000C11A /* PrivacyGuardTests.swift in Sources */,
 				DA360DB31E3DF137005C6F6B /* HistoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1134,6 +1157,10 @@
 				DAA072E32C41D1D5006DDFD2 /* ListItemView.swift in Sources */,
 				DAA072D92C41C5AD006DDFD2 /* Footer.swift in Sources */,
 				DA696BCE240177E800DE80CF /* Sorter.swift in Sources */,
+				FADE0002000000000000C11A /* PasteTransform.swift in Sources */,
+				FADE0008000000000000C11A /* Capture.swift in Sources */,
+				FADE000A000000000000C11A /* PrivacyGuard.swift in Sources */,
+				FADE000E000000000000C11A /* AIAction.swift in Sources */,
 				DAA072E92C42C6AA006DDFD2 /* ListItemTitleView.swift in Sources */,
 				DABDE97F2974706C005B32E9 /* KeyboardLayout.swift in Sources */,
 				2F0EC77B2E772899003E2EA9 /* PinsView.swift in Sources */,
@@ -1169,6 +1196,7 @@
 				DAEE38471E3DBEB100DD2966 /* AppDelegate.swift in Sources */,
 				DAA072DF2C41C63C006DDFD2 /* ConfirmationView.swift in Sources */,
 				DAA365CE2C4BF9DD00A394F8 /* PinsSettingsPane.swift in Sources */,
+				FADE0006000000000000C11A /* PasteSettingsPane.swift in Sources */,
 				DA3BCB8E2C3E015000B01BC1 /* ModifierFlags.swift in Sources */,
 				DA181177247D14DA00066D55 /* Settings.PaneIdentifier+Panes.swift in Sources */,
 				DA3BCB942C3EECBB00B01BC1 /* HistoryItemDecorator.swift in Sources */,
@@ -1512,7 +1540,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = MN3X4648SC;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = MaccyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1521,7 +1549,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.p0deje.MaccyUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanmaymaka.clippy.uitests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1539,7 +1567,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = MN3X4648SC;
+				DEVELOPMENT_TEAM = "";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = MaccyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1548,7 +1576,7 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.p0deje.MaccyUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanmaymaka.clippy.uitests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -1564,7 +1592,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = MN3X4648SC;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MaccyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1572,11 +1600,11 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.p0deje.MaccyTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanmaymaka.clippy.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Maccy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Maccy";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Clippy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Clippy";
 			};
 			name = Debug;
 		};
@@ -1588,7 +1616,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = MN3X4648SC;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = MaccyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1596,11 +1624,11 @@
 					"@loader_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.p0deje.MaccyTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanmaymaka.clippy.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Maccy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Maccy";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Clippy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Clippy";
 			};
 			name = Release;
 		};
@@ -1736,7 +1764,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 60;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = MN3X4648SC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1750,8 +1778,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 2.6.1;
-				PRODUCT_BUNDLE_IDENTIFIER = org.p0deje.Maccy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanmaymaka.clippy;
+				PRODUCT_MODULE_NAME = Maccy;
+				PRODUCT_NAME = Clippy;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1771,7 +1800,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 60;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = MN3X4648SC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1785,8 +1814,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 2.6.1;
-				PRODUCT_BUNDLE_IDENTIFIER = org.p0deje.Maccy;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tanmaymaka.clippy;
+				PRODUCT_MODULE_NAME = Maccy;
+				PRODUCT_NAME = Clippy;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};

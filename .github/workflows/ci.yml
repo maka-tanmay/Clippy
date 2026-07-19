@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and run unit tests
+        run: |
+          xcodebuild test \
+            -project Maccy.xcodeproj \
+            -scheme Maccy \
+            -destination 'platform=macOS' \
+            -skip-testing:MaccyUITests \
+            CODE_SIGN_IDENTITY=- CODE_SIGN_STYLE=Manual DEVELOPMENT_TEAM=

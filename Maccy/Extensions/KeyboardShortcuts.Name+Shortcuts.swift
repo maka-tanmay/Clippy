@@ -5,4 +5,10 @@ extension KeyboardShortcuts.Name {
   static let pin = Self("pin", default: Shortcut(.p, modifiers: [.option]))
   static let delete = Self("delete", default: Shortcut(.delete, modifiers: [.option]))
   static let togglePreview = Self("togglePreview", default: Shortcut(.space, modifiers: [.control]))
+  static let captureRegion = Self("captureRegion", default: Shortcut(.two, modifiers: [.command, .shift]))
+
+  // Global paste shortcut for the item pinned to `pin` (recorded in Pins settings).
+  static func snippet(_ pin: String) -> Self {
+    Self("snippet_\(pin)")
+  }
 }

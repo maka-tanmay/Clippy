@@ -37,6 +37,21 @@ struct HistoryItemView: View {
     return ColorImage.from(item.title)
   }
 
+  @available(macOS 26.0, *)
+  private func runAIAction(_ action: AIAction) {
+    guard let text = item.item.text else { return }
+
+    Task {
+      do {
+        // The result lands on the clipboard, so it also becomes a history item.
+        let result = try await action.run(on: text)
+        await Clipboard.shared.copyInMaccy(result)
+      } catch {
+        Notifier.notify(body: NSLocalizedString("ai_action_failed", comment: ""), sound: nil)
+      }
+    }
+  }
+
   var body: some View {
     ListItemView(
       id: item.id,
@@ -61,6 +76,27 @@ struct HistoryItemView: View {
       } else {
         Task {
           appState.history.select(item)
+        }
+      }
+    }
+    .contextMenu {
+      if item.item.text != nil {
+        Menu(NSLocalizedString("paste_as", comment: "")) {
+          ForEach(PasteTransform.allCases) { transform in
+            Button(transform.title) {
+              appState.popup.close()
+              Clipboard.shared.copy(item.item, transform: transform)
+              Clipboard.shared.paste()
+            }
+          }
+        }
+
+        if #available(macOS 26.0, *), AIAction.isAvailable {
+          ForEach(AIAction.allCases) { action in
+            Button(action.title) {
+              runAIAction(action)
+            }
+          }
         }
       }
     }

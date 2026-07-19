@@ -54,12 +54,16 @@ struct GeneralSettingsPane: View {
         KeyboardShortcuts.Recorder(for: .delete)
           .help(Text("DeleteTooltip", tableName: "GeneralSettings"))
       }
-      Settings.Section(
-        bottomDivider: true,
-        label: { Text("ShowPreview", tableName: "GeneralSettings") }
-      ) {
+      Settings.Section(label: { Text("ShowPreview", tableName: "GeneralSettings") }) {
         KeyboardShortcuts.Recorder(for: .togglePreview)
           .help(Text("ShowPreviewTooltip", tableName: "GeneralSettings"))
+      }
+      Settings.Section(
+        bottomDivider: true,
+        label: { Text("capture_region_label", tableName: "Localizable") }
+      ) {
+        KeyboardShortcuts.Recorder(for: .captureRegion)
+          .help(Text("capture_region_tooltip", tableName: "Localizable"))
       }
 
       Settings.Section(

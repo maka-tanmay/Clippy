@@ -72,13 +72,20 @@ class Clipboard {
   }
 
   @MainActor
-  func copy(_ item: HistoryItem?, removeFormatting: Bool = false) {
+  func copy(_ item: HistoryItem?, removeFormatting: Bool = false, transform: PasteTransform? = nil) {
     guard let item else { return }
+
+    if let transform, let text = item.text {
+      copyPlainText(transform.apply(text), application: item.application, title: item.title)
+      return
+    }
 
     pasteboard.clearContents()
     var contents = item.contents
 
-    if removeFormatting {
+    // Per-app rule: always paste plain text into apps the user listed
+    // (checked here so every paste path — select, paste stack, shortcuts — honors it).
+    if removeFormatting || pastesPlainText(into: sourceApp) {
       contents = clearFormatting(contents)
     }
 
@@ -107,6 +114,25 @@ class Clipboard {
       Notifier.notify(body: item.title, sound: .knock)
       checkForChangesInPasteboard()
     }
+  }
+
+  @MainActor
+  private func copyPlainText(_ string: String, application: String?, title: String) {
+    pasteboard.clearContents()
+    pasteboard.setString(string, forType: .string)
+    pasteboard.setString("", forType: .fromMaccy)
+    pasteboard.setString(application ?? "", forType: .source)
+    sync()
+
+    Task {
+      Notifier.notify(body: title, sound: .knock)
+      checkForChangesInPasteboard()
+    }
+  }
+
+  private func pastesPlainText(into app: NSRunningApplication?) -> Bool {
+    guard let bundle = app?.bundleIdentifier else { return false }
+    return Defaults[.plainTextApps].contains(bundle)
   }
 
   // Based on https://github.com/Clipy/Clipy/blob/develop/Clipy/Sources/Services/PasteService.swift.
@@ -226,6 +252,15 @@ class Clipboard {
 
     historyItem.application = sourceApp?.bundleIdentifier
     historyItem.title = historyItem.generateTitle()
+
+    if let expiration = PrivacyGuard.expiration(for: historyItem.text) {
+      historyItem.expiresAt = expiration.date
+      if expiration.isSecret {
+        Task {
+          Notifier.notify(body: NSLocalizedString("secret_detected", comment: ""), sound: nil)
+        }
+      }
+    }
 
     onNewCopyHooks.forEach({ $0(historyItem) })
   }

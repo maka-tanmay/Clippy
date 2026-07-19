@@ -60,6 +60,7 @@ class HistoryItem {
   ]
 
   var application: String?
+  var expiresAt: Date?
   var firstCopiedAt: Date = Date.now
   var lastCopiedAt: Date = Date.now
   var numberOfCopies: Int = 1
@@ -220,7 +221,10 @@ class HistoryItem {
 
     let requestHandler = VNImageRequestHandler(cgImage: cgImage)
     let request = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-    request.recognitionLevel = .fast
+    // Accurate recognition makes screenshots reliably searchable; it runs
+    // async off the copy path, so the extra latency is invisible.
+    request.recognitionLevel = .accurate
+    request.usesLanguageCorrection = true
 
     do {
       try requestHandler.perform([request])

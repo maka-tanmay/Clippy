@@ -4,6 +4,53 @@ import Foundation
 import Observation
 import Sauce
 
+enum ContentType: String {
+  case image, file, color, url, email, phone, text
+
+  // Search-prefix aliases: "type:url invoice" filters to URLs matching "invoice".
+  private static let aliases: [String: ContentType] = [
+    "url": .url, "link": .url, "image": .image, "img": .image, "file": .file,
+    "color": .color, "email": .email, "phone": .phone, "text": .text
+  ]
+
+  private static let detector = try? NSDataDetector(
+    types: NSTextCheckingResult.CheckingType.link.rawValue | NSTextCheckingResult.CheckingType.phoneNumber.rawValue
+  )
+
+  static func detect(_ item: HistoryItem) -> ContentType {
+    if item.image != nil { return .image }
+    if !item.fileURLs.isEmpty { return .file }
+
+    let text = item.previewableText.shortened(to: 10_000).trimmingCharacters(in: .whitespacesAndNewlines)
+    guard !text.isEmpty else { return .text }
+    if ColorImage.from(text) != nil { return .color }
+
+    if !text.contains("\n"),
+       let match = detector?.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)),
+       match.range.length == text.utf16.count {
+      switch match.resultType {
+      case .link: return match.url?.scheme == "mailto" ? .email : .url
+      case .phoneNumber: return .phone
+      default: break
+      }
+    }
+
+    return .text
+  }
+
+  // Splits a "type:xxx rest" query into (filter, remaining query).
+  static func parse(query: String) -> (ContentType?, String) {
+    guard query.lowercased().hasPrefix("type:") else { return (nil, query) }
+
+    let rest = query.dropFirst("type:".count)
+    let token = rest.prefix(while: { !$0.isWhitespace }).lowercased()
+    guard let type = aliases[String(token)] else { return (nil, query) }
+
+    let remainder = rest.dropFirst(token.count).trimmingCharacters(in: .whitespaces)
+    return (type, remainder)
+  }
+}
+
 @Observable
 class HistoryItemDecorator: Identifiable, Hashable, HasVisibility {
   static func == (lhs: HistoryItemDecorator, rhs: HistoryItemDecorator) -> Bool {
@@ -59,6 +106,9 @@ class HistoryItemDecorator: Identifiable, Hashable, HasVisibility {
     hasher.combine(title)
     hasher.combine(attributedTitle)
   }
+
+  @ObservationIgnored
+  lazy var contentType: ContentType = ContentType.detect(item)
 
   private(set) var item: HistoryItem
 

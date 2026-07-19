@@ -1,3 +1,4 @@
+import KeyboardShortcuts
 import SwiftData
 import SwiftUI
 
@@ -139,6 +140,13 @@ struct PinsSettingsPane: View {
         TableColumn(Text("Content", tableName: "PinsSettings")) { item in
           PinValueView(item: item)
         }
+
+        TableColumn(Text("pins_shortcut_column", tableName: "Localizable")) { item in
+          if let pin = item.pin {
+            KeyboardShortcuts.Recorder(for: .snippet(pin))
+          }
+        }
+        .width(130)
       }
       .onAppear {
         availablePins = HistoryItem.availablePins

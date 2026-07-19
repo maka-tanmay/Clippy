@@ -148,6 +148,13 @@ class AppState: Sendable {
             IgnoreSettingsPane()
           },
           Settings.Pane(
+            identifier: Settings.PaneIdentifier.paste,
+            title: NSLocalizedString("paste_settings_title", comment: ""),
+            toolbarIcon: NSImage.doconclipboard!
+          ) {
+            PasteSettingsPane()
+          },
+          Settings.Pane(
             identifier: Settings.PaneIdentifier.advanced,
             title: NSLocalizedString("Title", tableName: "AdvancedSettings", comment: ""),
             toolbarIcon: NSImage.gearshape2!

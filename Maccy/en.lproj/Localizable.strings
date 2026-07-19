@@ -13,8 +13,8 @@
 "copy_modifiers_config" = "• Select with %@ pressed to copy item.";
 "paste_modifiers_config" = "• Select with %@ pressed to copy and paste item.";
 "format_modifiers_config" = "• Select with %@ pressed to copy, clear formatting and paste item.";
-"accessibility_alert_message" = "“Maccy” would like to control this computer using accessibility features.";
-"accessibility_alert_comment" = "Grant access to this application in {pane}, located in {settings}.\n\nClick + button, select Maccy, and toggle on the checkbox next to it.";
+"accessibility_alert_message" = "“Clippy” would like to control this computer using accessibility features.";
+"accessibility_alert_comment" = "Grant access to this application in {pane}, located in {settings}.\n\nClick + button, select Clippy, and toggle on the checkbox next to it.";
 "accessibility_alert_deny" = "Deny";
 "accessibility_alert_open" = "Open System Preferences";
 "clear_alert_message" = "Are you sure you want to clear the history?";
@@ -28,3 +28,40 @@
 "system_settings_pane" = "Privacy & Security settings";
 "system_preferences_name" = "System Preferences";
 "system_preferences_pane" = "Security & Privacy preferences";
+
+/* Paste transforms */
+"paste_as" = "Paste As";
+"paste_transform_uppercase" = "UPPERCASE";
+"paste_transform_lowercase" = "lowercase";
+"paste_transform_trimmed" = "Trimmed";
+"paste_transform_stripped_tracking" = "Without Tracking Parameters";
+"paste_transform_pretty_json" = "Pretty JSON";
+
+/* Pin suggestion */
+"pin_suggestion" = "You've copied “%@” 5 times — press ⌥P to pin it.";
+
+/* Paste settings pane */
+"paste_settings_title" = "Paste";
+"plain_text_apps_title" = "Always paste as plain text into these applications:";
+"plain_text_apps_description" = "Formatting is stripped automatically whenever Clippy pastes into an application in this list — useful for terminals, chat apps, and code editors.";
+
+/* Pins snippet shortcut */
+"pins_shortcut_column" = "Global Shortcut";
+
+/* Screen capture */
+"capture_region_label" = "Capture screen region";
+"capture_region_tooltip" = "Select part of the screen to copy it as an image. It lands in your clipboard history, searchable by the text it contains.";
+"capture_failed" = "Screen capture failed. Allow Screen Recording for Clippy in System Settings → Privacy & Security.";
+
+/* Privacy vault */
+"secret_detected" = "Looks like a secret — Clippy will forget it in 2 minutes.";
+"privacy_section_label" = "Privacy:";
+"detect_secrets_toggle" = "Auto-expire detected secrets (API keys, tokens) after 2 minutes";
+"expire_rules_label" = "Expire items matching these patterns after";
+"expire_rules_minutes" = "minutes";
+"privacy_section_description" = "One regular expression per line. Anything you copy that matches (for example a 6-digit one-time code) is deleted from history — and from the clipboard — after the timeout.";
+
+/* AI actions */
+"ai_action_summarize" = "Summarize with AI";
+"ai_action_explain_code" = "Explain Code with AI";
+"ai_action_failed" = "AI action failed — the on-device model may be busy or unavailable.";
