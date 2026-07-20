@@ -65,3 +65,9 @@
 "ai_action_summarize" = "Summarize with AI";
 "ai_action_explain_code" = "Explain Code with AI";
 "ai_action_failed" = "AI action failed — the on-device model may be busy or unavailable.";
+
+/* Screenshot watcher */
+"screenshot_watcher_toggle" = "Import system screenshots (⇧⌘3/⇧⌘4) into history";
+"screenshot_watcher_description" = "macOS saves screenshots as files without copying them. Turn this on and pick your screenshots folder (usually Desktop) — every new screenshot then appears in Clippy, searchable by the text inside it.";
+"screenshot_watcher_panel_message" = "Choose the folder where macOS saves your screenshots (usually Desktop). Clippy only reads new screenshots from it.";
+"screenshot_watcher_panel_prompt" = "Watch This Folder";

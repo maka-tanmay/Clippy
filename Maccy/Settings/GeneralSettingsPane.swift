@@ -16,6 +16,7 @@ struct GeneralSettingsPane: View {
   @State private var pasteWithoutFormatting = HistoryItemAction.pasteWithoutFormatting.modifierFlags.description
 
   @State private var updater = SoftwareUpdater()
+  @State private var importScreenshots = ScreenshotWatcher.shared.isEnabled
 
   var body: some View {
     Settings.Container(contentWidth: 450) {
@@ -64,6 +65,25 @@ struct GeneralSettingsPane: View {
       ) {
         KeyboardShortcuts.Recorder(for: .captureRegion)
           .help(Text("capture_region_tooltip", tableName: "Localizable"))
+
+        Toggle(
+          isOn: Binding(
+            get: { importScreenshots },
+            set: { enabled in
+              if enabled {
+                ScreenshotWatcher.shared.chooseFolder()
+              } else {
+                ScreenshotWatcher.shared.stop()
+              }
+              importScreenshots = ScreenshotWatcher.shared.isEnabled
+            }
+          ),
+          label: { Text("screenshot_watcher_toggle", tableName: "Localizable") }
+        )
+        Text("screenshot_watcher_description", tableName: "Localizable")
+          .controlSize(.small)
+          .foregroundStyle(.gray)
+          .fixedSize(horizontal: false, vertical: true)
       }
 
       Settings.Section(

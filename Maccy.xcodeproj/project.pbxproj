@@ -104,6 +104,7 @@
 		FADE0008000000000000C11A /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0007000000000000C11A /* Capture.swift */; };
 		FADE000A000000000000C11A /* PrivacyGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0009000000000000C11A /* PrivacyGuard.swift */; };
 		FADE000E000000000000C11A /* AIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE000D000000000000C11A /* AIAction.swift */; };
+		FADE0010000000000000C11A /* ScreenshotWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE000F000000000000C11A /* ScreenshotWatcher.swift */; };
 		FADE000C000000000000C11A /* PrivacyGuardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE000B000000000000C11A /* PrivacyGuardTests.swift */; };
 		FADE0004000000000000C11A /* PasteTransformTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0003000000000000C11A /* PasteTransformTests.swift */; };
 		DA696BD22401EEE900DE80CF /* SorterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA696BD12401EEE900DE80CF /* SorterTests.swift */; };
@@ -403,6 +404,7 @@
 		FADE0007000000000000C11A /* Capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capture.swift; sourceTree = "<group>"; };
 		FADE0009000000000000C11A /* PrivacyGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyGuard.swift; sourceTree = "<group>"; };
 		FADE000D000000000000C11A /* AIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAction.swift; sourceTree = "<group>"; };
+		FADE000F000000000000C11A /* ScreenshotWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotWatcher.swift; sourceTree = "<group>"; };
 		FADE000B000000000000C11A /* PrivacyGuardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyGuardTests.swift; sourceTree = "<group>"; };
 		FADE0003000000000000C11A /* PasteTransformTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteTransformTests.swift; sourceTree = "<group>"; };
 		DA696BD12401EEE900DE80CF /* SorterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SorterTests.swift; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 				FADE0007000000000000C11A /* Capture.swift */,
 				FADE0009000000000000C11A /* PrivacyGuard.swift */,
 				FADE000D000000000000C11A /* AIAction.swift */,
+				FADE000F000000000000C11A /* ScreenshotWatcher.swift */,
 				DA243D132C2F66DD0012A27F /* Storage.swift */,
 				DA81D673252A056B009977BC /* Throttler.swift */,
 				DAB8CE4024E3677F00A2500E /* Maccy.entitlements */,
@@ -1161,6 +1164,7 @@
 				FADE0008000000000000C11A /* Capture.swift in Sources */,
 				FADE000A000000000000C11A /* PrivacyGuard.swift in Sources */,
 				FADE000E000000000000C11A /* AIAction.swift in Sources */,
+				FADE0010000000000000C11A /* ScreenshotWatcher.swift in Sources */,
 				DAA072E92C42C6AA006DDFD2 /* ListItemTitleView.swift in Sources */,
 				DABDE97F2974706C005B32E9 /* KeyboardLayout.swift in Sources */,
 				2F0EC77B2E772899003E2EA9 /* PinsView.swift in Sources */,

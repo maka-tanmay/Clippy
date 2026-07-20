@@ -45,6 +45,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       }
     }
 
+    ScreenshotWatcher.shared.start()
+
     // Snippet shortcuts: the pin set is small and fixed, so register every
     // possible pin once and resolve the pinned item at fire time.
     for pin in HistoryItem.supportedPins {

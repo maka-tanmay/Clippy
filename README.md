@@ -14,7 +14,7 @@ Everything Maccy does today — lightweight, keyboard-first, native SwiftUI, ful
 |---|---|---|
 | **Smart Paste** | Right-click → *Paste As* (UPPERCASE, lowercase, trimmed, tracking params stripped, pretty JSON), per-app plain-text rules (Preferences → Paste), global snippet shortcuts for pinned items (Preferences → Pins), paste stack | ✅ shipped |
 | **Intelligence-lite** | `type:` search filters (`type:url invoice`, `type:image`, `type:color`, `type:email`, `type:phone`, `type:file`), "pin this?" suggestion after 5 copies | ✅ shipped |
-| **Capture Suite** | Screenshot-to-clipboard (hit the capture hotkey, drag a region, done) — the shot lands in history and is *searchable by the text inside it* via accurate on-device OCR | ✅ shipped |
+| **Capture Suite** | Screenshot-to-clipboard (hit the capture hotkey, drag a region, done) — the shot lands in history and is *searchable by the text inside it* via accurate on-device OCR. System screenshots (⇧⌘3/⇧⌘4) can be imported into history automatically too | ✅ shipped |
 | **Privacy Vault** | Secrets auto-shred: copied API keys, tokens, and private keys are detected and wiped from history *and* the clipboard after 2 minutes; custom regex expire rules for OTPs etc. (Preferences → Storage) | ✅ shipped |
 | **AI Actions** | Right-click → Summarize / Explain Code, fully on-device via Apple Intelligence (macOS 26+, hidden elsewhere) | ✅ shipped |
 | **Later** | Quick annotate for captures, encrypted-at-rest history, E2E-encrypted CloudKit sync, translation | 🔜 planned |
@@ -42,6 +42,7 @@ Notarized downloads and `brew install maka-tanmay/tap/clippy` are coming with th
 4. <kbd>⌥</kbd><kbd>P</kbd> pins/unpins an item; <kbd>⌥</kbd><kbd>⌫</kbd> deletes one. In Preferences → Pins you can give a pinned item an alias, edit its content, and record a **global shortcut** that pastes it from anywhere — instant snippets.
 5. Right-click any text item → **Paste As** to paste it transformed: UPPERCASE, lowercase, trimmed, with URL tracking parameters stripped, or as pretty-printed JSON.
 6. <kbd>⇧</kbd><kbd>⌘</kbd><kbd>2</kbd> captures a screen region straight to your clipboard (grant Screen Recording on first use). Search its text later with `type:image`.
+   Taking screenshots with macOS's own <kbd>⇧</kbd><kbd>⌘</kbd><kbd>3</kbd>/<kbd>⇧</kbd><kbd>⌘</kbd><kbd>4</kbd>? Those save files without copying anything. Enable **Import system screenshots** in Preferences → General and they'll flow into Clippy's history automatically (or hold <kbd>⌃</kbd> while shooting to send one to the clipboard).
 7. <kbd>⌥</kbd><kbd>⌘</kbd><kbd>⌫</kbd> clears unpinned history; add <kbd>⇧</kbd> to clear everything.
 8. <kbd>⌥</kbd>-click the menu icon to pause Clippy; <kbd>⌥</kbd><kbd>⇧</kbd>-click to ignore only the next copy.
 9. <kbd>⌘</kbd><kbd>,</kbd> opens Preferences.

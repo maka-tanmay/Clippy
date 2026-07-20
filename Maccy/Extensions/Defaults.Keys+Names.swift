@@ -44,6 +44,7 @@ extension Defaults.Keys {
   static let expireRegexps = Key<[String]>("expireRegexps", default: [])
   static let expireAfterMinutes = Key<Int>("expireAfterMinutes", default: 10)
   static let detectSecrets = Key<Bool>("detectSecrets", default: true)
+  static let screenshotsFolderBookmark = Key<Data?>("screenshotsFolderBookmark", default: nil)
   static let popupPosition = Key<PopupPosition>("popupPosition", default: .cursor)
   static let popupScreen = Key<Int>("popupScreen", default: 0)
   static let openPreviewAutomatically = Key<Bool>("openPreviewAutomatically", default: true)
