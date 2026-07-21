@@ -8,7 +8,8 @@ on:
 
 jobs:
   release:
-    runs-on: macos-15
+    # Needs the macOS 26 SDK: upstream uses NSGlassEffectView (Liquid Glass).
+    runs-on: macos-26
     steps:
       - uses: actions/checkout@v4
 
