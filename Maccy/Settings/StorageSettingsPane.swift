@@ -108,8 +108,10 @@ struct StorageSettingsPane: View {
           TextField("", value: $size, formatter: sizeFormatter)
             .frame(width: 80)
             .help(Text("SizeTooltip", tableName: "StorageSettings"))
+            .accessibilityLabel(Text("Size", tableName: "StorageSettings"))
           Stepper("", value: $size, in: 1...999)
             .labelsHidden()
+            .accessibilityLabel(Text("Size", tableName: "StorageSettings"))
           Text(storageSize)
             .controlSize(.small)
             .foregroundStyle(.gray)
@@ -132,6 +134,7 @@ struct StorageSettingsPane: View {
         .labelsHidden()
         .frame(width: 160, alignment: .leading)
         .help(Text("SortByTooltip", tableName: "StorageSettings"))
+        .accessibilityLabel(Text("SortBy", tableName: "StorageSettings"))
       }
 
       Settings.Section(label: { Text("privacy_section_label", tableName: "Localizable") }) {

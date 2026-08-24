@@ -44,20 +44,24 @@ struct GeneralSettingsPane: View {
           }
         })
           .help(Text("OpenTooltip", tableName: "GeneralSettings"))
+          .accessibilityLabel(Text("Open", tableName: "GeneralSettings"))
       }
 
       Settings.Section(label: { Text("Pin", tableName: "GeneralSettings") }) {
         KeyboardShortcuts.Recorder(for: .pin)
           .help(Text("PinTooltip", tableName: "GeneralSettings"))
+          .accessibilityLabel(Text("Pin", tableName: "GeneralSettings"))
       }
       Settings.Section(label: { Text("Delete", tableName: "GeneralSettings") }
       ) {
         KeyboardShortcuts.Recorder(for: .delete)
           .help(Text("DeleteTooltip", tableName: "GeneralSettings"))
+          .accessibilityLabel(Text("Delete", tableName: "GeneralSettings"))
       }
       Settings.Section(label: { Text("ShowPreview", tableName: "GeneralSettings") }) {
         KeyboardShortcuts.Recorder(for: .togglePreview)
           .help(Text("ShowPreviewTooltip", tableName: "GeneralSettings"))
+          .accessibilityLabel(Text("ShowPreview", tableName: "GeneralSettings"))
       }
       Settings.Section(
         bottomDivider: true,
@@ -96,6 +100,7 @@ struct GeneralSettingsPane: View {
           }
         }
         .labelsHidden()
+        .accessibilityLabel(Text("Search", tableName: "GeneralSettings"))
         .frame(width: 180, alignment: .leading)
       }
 

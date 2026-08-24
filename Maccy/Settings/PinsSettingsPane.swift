@@ -18,6 +18,7 @@ struct PinPickerView: View {
       }
       .controlSize(.small)
       .labelsHidden()
+      .accessibilityLabel(Text("Key", tableName: "PinsSettings"))
     }
   }
 }
@@ -27,6 +28,7 @@ struct PinTitleView: View {
 
   var body: some View {
     TextField("", text: $item.title)
+      .accessibilityLabel(Text("Alias", tableName: "PinsSettings"))
   }
 }
 
@@ -66,6 +68,7 @@ struct PinValueView: View {
               updateItemContent()
             }
             .padding(.trailing, isRichText ? 40 : 0) // increased space for icon
+            .accessibilityLabel(Text("Content", tableName: "PinsSettings"))
 
           if isRichText && isEditing {
             HStack(spacing: 0) {
@@ -128,7 +131,7 @@ struct PinsSettingsPane: View {
         TableColumn(Text("Key", tableName: "PinsSettings")) { item in
           PinPickerView(item: item, availablePins: availablePins)
             .onChange(of: item.pin) {
-              availablePins = HistoryItem.availablePins
+              availablePins = HistoryItem.availablePins(in: items)
             }
         }
         .width(60)
@@ -149,7 +152,7 @@ struct PinsSettingsPane: View {
         .width(130)
       }
       .onAppear {
-        availablePins = HistoryItem.availablePins
+        availablePins = HistoryItem.availablePins(in: items)
       }
       .onDeleteCommand {
         guard let selection,

@@ -71,3 +71,14 @@
 "screenshot_watcher_description" = "macOS saves screenshots as files without copying them. Turn this on and pick your screenshots folder (usually Desktop) — every new screenshot then appears in Clippy, searchable by the text inside it.";
 "screenshot_watcher_panel_message" = "Choose the folder where macOS saves your screenshots (usually Desktop). Clippy only reads new screenshots from it.";
 "screenshot_watcher_panel_prompt" = "Watch This Folder";
+"status_item_accessibility_label" = "Clippy — clipboard history";
+"status_item_disabled_accessibility_suffix" = "paused";
+"search_clear_accessibility_label" = "Clear search";
+"history_item_pin_action" = "Pin";
+"history_item_unpin_action" = "Unpin";
+"history_item_delete_action" = "Delete";
+"history_item_pinned_accessibility_value" = "Pinned";
+"history_item_selected_accessibility_value" = "Selected, %d of %d";
+"history_item_image_accessibility_label_no_app" = "Image, %dx%d";
+"history_item_image_accessibility_generic" = "Image";
+"toolbar_remove_paste_stack_action" = "Stop paste stack";
