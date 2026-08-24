@@ -85,6 +85,12 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
     }
 
     Task {
+      for await _ in Defaults.updates(.activeWorkspace, initial: false) {
+        try? await load()
+      }
+    }
+
+    Task {
       for await _ in Defaults.updates(.pinTo, initial: false) {
         try? await load()
       }
@@ -114,7 +120,8 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
   func load() async throws {
     let descriptor = FetchDescriptor<HistoryItem>()
     let results = try Storage.shared.context.fetch(descriptor)
-    all = sorter.sort(results).map { HistoryItemDecorator($0) }
+    // Workspace.scope is a no-op when no workspaces exist (the common case).
+    all = sorter.sort(Workspace.scope(results)).map { HistoryItemDecorator($0) }
     items = all
 
     limitHistorySize(to: Defaults[.size])
@@ -214,6 +221,9 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
   @discardableResult
   @MainActor
   func add(_ item: HistoryItem, shouldAppend: Bool = false) -> HistoryItemDecorator {
+    // Stamp the active workspace (no-op / nil when workspaces aren't in use).
+    item.workspace = Workspace.stampForNewItem
+
     if #available(macOS 15.0, *) {
       try? History.shared.insertIntoStorage(item)
     } else {

@@ -27,6 +27,8 @@ extension Defaults.Keys {
   static let clearOnQuit = Key<Bool>("clearOnQuit", default: false, suite: preferencesSuite)
   static let clearSystemClipboard = Key<Bool>("clearSystemClipboard", default: false, suite: preferencesSuite)
   static let clipboardCheckInterval = Key<Double>("clipboardCheckInterval", default: 0.5, suite: preferencesSuite)
+  static let workspaces = Key<[String]>("workspaces", default: [], suite: preferencesSuite)
+  static let activeWorkspace = Key<String>("activeWorkspace", default: "", suite: preferencesSuite)
   static let appendModeEnabled = Key<Bool>("appendModeEnabled", default: false, suite: preferencesSuite)
   static let appendModeTimeWindow = Key<Double>("appendModeTimeWindow", default: 1.0, suite: preferencesSuite)
   static let enabledPasteboardTypes = Key<Set<NSPasteboard.PasteboardType>>(

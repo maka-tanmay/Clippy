@@ -175,6 +175,14 @@ class AppState: Sendable {
             PasteSettingsPane()
           },
           Settings.Pane(
+            identifier: Settings.PaneIdentifier.workspaces,
+            title: NSLocalizedString("workspaces_settings_title", comment: ""),
+            toolbarIcon: NSImage.squareStack!
+          ) {
+            WorkspaceSettingsPane()
+              .frame(minWidth: minimumWidth)
+          },
+          Settings.Pane(
             identifier: Settings.PaneIdentifier.advanced,
             title: advancedTitle,
             toolbarIcon: NSImage.gearshape2!

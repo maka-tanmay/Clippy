@@ -94,3 +94,11 @@
 
 /* Pin reorder */
 "pins_order_column" = "Order";
+
+/* Workspaces */
+"workspaces_settings_title" = "Workspaces";
+"workspaces_active_label" = "Active workspace:";
+"workspaces_default" = "Default";
+"workspaces_new_placeholder" = "New workspace name";
+"workspaces_add" = "Add";
+"workspaces_description" = "Workspaces keep separate clipboard histories for different contexts (e.g. Work, Personal). Copies go into the active workspace; pinned items stay visible in all of them. With no workspaces, everything shares one history.";

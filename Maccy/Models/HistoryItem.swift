@@ -78,6 +78,7 @@ class HistoryItem {
   var pinnedOrder: Int = 0
   var tags: [String] = []
   var title = ""
+  var workspace: String?
 
   @Relationship(deleteRule: .cascade, inverse: \HistoryItemContent.item)
   var contents: [HistoryItemContent] = []
