@@ -24,9 +24,13 @@ class Sorter {
   }
 
   func sort(_ items: [HistoryItem], by: By = Defaults[.sortBy]) -> [HistoryItem] {
-    return items
-      .sorted(by: { return bySortingAlgorithm($0, $1, by) })
-      .sorted(by: byPinned)
+    let sorted = items.sorted(by: { return bySortingAlgorithm($0, $1, by) })
+    // Pinned items keep a user-controlled manual order (pinnedOrder). When it's
+    // unset (all 0) the stable sort preserves the normal order, so nothing
+    // changes until the user reorders pins.
+    let pinned = sorted.filter { $0.pin != nil }.sorted(by: { $0.pinnedOrder < $1.pinnedOrder })
+    let unpinned = sorted.filter { $0.pin == nil }
+    return Defaults[.pinTo] == .bottom ? unpinned + pinned : pinned + unpinned
   }
 
   private func bySortingAlgorithm(_ lhs: HistoryItem, _ rhs: HistoryItem, _ by: By) -> Bool {
@@ -37,14 +41,6 @@ class Sorter {
       return lhs.numberOfCopies > rhs.numberOfCopies
     default:
       return lhs.lastCopiedAt > rhs.lastCopiedAt
-    }
-  }
-
-  private func byPinned(_ lhs: HistoryItem, _ rhs: HistoryItem) -> Bool {
-    if Defaults[.pinTo] == .bottom {
-      return (lhs.pin == nil) && (rhs.pin != nil)
-    } else {
-      return (lhs.pin != nil) && (rhs.pin == nil)
     }
   }
 }

@@ -51,6 +51,16 @@ class SorterTests: XCTestCase {
     XCTAssertEqual(sorter.sort([item1, item2, item3], by: .lastCopiedAt), [item2, item1, item3])
   }
 
+  func testPinnedItemsHonorManualOrder() {
+    Defaults[.pinTo] = .top
+
+    // item1 sorts ahead of item3 by lastCopiedAt, but a lower pinnedOrder on
+    // item3 puts it first among the pins.
+    item1.pin = "a"; item1.pinnedOrder = 2
+    item3.pin = "b"; item3.pinnedOrder = 1
+    XCTAssertEqual(sorter.sort([item1, item2, item3], by: .lastCopiedAt), [item3, item1, item2])
+  }
+
   @MainActor
   private func historyItem(
     value: String,

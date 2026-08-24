@@ -262,6 +262,8 @@ class HistoryItemDecorator: Identifiable, Hashable, HasVisibility {
     } else {
       let pin = HistoryItem.randomAvailablePin
       item.pin = pin
+      // Place a newly pinned item at the end of the manual pin order.
+      item.pinnedOrder = (HistoryItem.maxPinnedOrder ?? -1) + 1
     }
   }
 

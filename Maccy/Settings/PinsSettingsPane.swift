@@ -119,7 +119,7 @@ struct PinsSettingsPane: View {
   @Environment(AppState.self) private var appState
   @Environment(\.modelContext) private var modelContext
 
-  @Query(filter: #Predicate<HistoryItem> { $0.pin != nil }, sort: \.firstCopiedAt)
+  @Query(filter: #Predicate<HistoryItem> { $0.pin != nil }, sort: \.pinnedOrder)
   private var items: [HistoryItem]
 
   @State private var availablePins: [String] = []
@@ -150,6 +150,23 @@ struct PinsSettingsPane: View {
           }
         }
         .width(130)
+
+        TableColumn(Text("pins_order_column", tableName: "Localizable")) { item in
+          if let decorator = appState.history.all.first(where: { $0.item.id == item.id }) {
+            HStack(spacing: 2) {
+              Button { appState.history.movePinned(decorator, up: true) } label: {
+                Image(systemName: "chevron.up")
+              }
+              .disabled(item.id == items.first?.id)
+              Button { appState.history.movePinned(decorator, up: false) } label: {
+                Image(systemName: "chevron.down")
+              }
+              .disabled(item.id == items.last?.id)
+            }
+            .buttonStyle(.borderless)
+          }
+        }
+        .width(60)
       }
       .onAppear {
         availablePins = HistoryItem.availablePins(in: items)

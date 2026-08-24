@@ -562,6 +562,28 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
     }
   }
 
+  // Moves a pinned item up or down in the manual pin order. Reassigns
+  // sequential pinnedOrder values on each move so it works even for pins that
+  // predate the field (all zero).
+  @MainActor
+  func movePinned(_ item: HistoryItemDecorator, up: Bool) {
+    var pins = all.filter(\.isPinned).sorted { $0.item.pinnedOrder < $1.item.pinnedOrder }
+    guard let idx = pins.firstIndex(of: item) else { return }
+    let target = up ? idx - 1 : idx + 1
+    guard pins.indices.contains(target) else { return }
+
+    pins.swapAt(idx, target)
+    for (order, pin) in pins.enumerated() {
+      pin.item.pinnedOrder = order
+    }
+    try? Storage.shared.context.save()
+
+    let sortedItems = sorter.sort(all.map(\.item))
+    all.sort { (sortedItems.firstIndex(of: $0.item) ?? 0) < (sortedItems.firstIndex(of: $1.item) ?? 0) }
+    items = all
+    updateUnpinnedShortcuts()
+  }
+
   @MainActor
   private func findSimilarItem(_ item: HistoryItem) -> HistoryItem? {
     if let duplicate = all.first(where: { $0.item != item && $0.item.supersedes(item) }) {

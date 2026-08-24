@@ -49,6 +49,11 @@ class HistoryItem {
   }
 
   @MainActor
+  static var maxPinnedOrder: Int? {
+    History.shared.all.filter(\.isPinned).map(\.item.pinnedOrder).max()
+  }
+
+  @MainActor
   static var randomAvailablePin: String { availablePins.randomElement() ?? "" }
 
   private static let transientTypes: [String] = [
@@ -70,6 +75,7 @@ class HistoryItem {
   var lastCopiedAt: Date = Date.now
   var numberOfCopies: Int = 1
   var pin: String?
+  var pinnedOrder: Int = 0
   var tags: [String] = []
   var title = ""
 

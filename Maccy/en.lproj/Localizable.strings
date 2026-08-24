@@ -91,3 +91,6 @@
 "tags_edit_placeholder" = "work, urgent, invoice";
 "tags_edit_save" = "Save";
 "tags_edit_cancel" = "Cancel";
+
+/* Pin reorder */
+"pins_order_column" = "Order";
