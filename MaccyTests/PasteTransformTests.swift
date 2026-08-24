@@ -33,4 +33,9 @@ class PasteTransformTests: XCTestCase {
     // Invalid JSON is untouched
     XCTAssertEqual(PasteTransform.prettyJSON.apply("{nope"), "{nope")
   }
+
+  func testNormalizeWhitespace() {
+    XCTAssertEqual(PasteTransform.normalizedWhitespace.apply("  a\t b\n\nc  "), "a b c")
+    XCTAssertEqual(PasteTransform.normalizedWhitespace.apply("single"), "single")
+  }
 }

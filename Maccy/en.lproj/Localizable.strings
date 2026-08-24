@@ -34,6 +34,7 @@
 "paste_transform_uppercase" = "UPPERCASE";
 "paste_transform_lowercase" = "lowercase";
 "paste_transform_trimmed" = "Trimmed";
+"paste_transform_normalized_whitespace" = "Normalized Whitespace";
 "paste_transform_stripped_tracking" = "Without Tracking Parameters";
 "paste_transform_pretty_json" = "Pretty JSON";
 
