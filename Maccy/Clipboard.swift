@@ -5,10 +5,12 @@ import Sauce
 class Clipboard {
   static let shared = Clipboard()
 
-  typealias OnNewCopyHook = (HistoryItem) -> Void
+  typealias OnNewCopyHook = (HistoryItem, Bool) -> Void
 
   private var onNewCopyHooks: [OnNewCopyHook] = []
   var changeCount: Int
+  private var lastClipboardChangeTime: Date?
+  private var lastClipboardContent: String?
 
   private let pasteboard = NSPasteboard.general
 
@@ -179,7 +181,9 @@ class Clipboard {
       return
     }
 
+    let previousChangeCount = changeCount
     changeCount = pasteboard.changeCount
+    let changeCountDelta = changeCount - previousChangeCount
 
     if pasteboard.pasteboardItems?.contains(where: { $0.types.contains(.fromMaccy) }) != true {
       // External copy occurred. Stop the current paste stack.
@@ -262,7 +266,30 @@ class Clipboard {
       }
     }
 
-    onNewCopyHooks.forEach({ $0(historyItem) })
+    // Append mode: double-tapping ⌘C (changeCount jumps by 2, or the same text
+    // is copied again within the time window) accumulates onto the previous item.
+    var shouldAppend = false
+    let now = Date.now
+    let currentContent = historyItem.text
+
+    if Defaults[.appendModeEnabled] {
+      if changeCountDelta == 2 {
+        shouldAppend = true
+      } else if let lastChange = lastClipboardChangeTime,
+                let lastContent = lastClipboardContent,
+                let currentText = currentContent,
+                currentText == lastContent,
+                now.timeIntervalSince(lastChange) <= Defaults[.appendModeTimeWindow] {
+        shouldAppend = true
+      }
+    }
+
+    if !shouldAppend {
+      lastClipboardChangeTime = now
+      lastClipboardContent = currentContent
+    }
+
+    onNewCopyHooks.forEach({ $0(historyItem, shouldAppend) })
   }
 
   private func shouldIgnore(_ types: Set<NSPasteboard.PasteboardType>) -> Bool {

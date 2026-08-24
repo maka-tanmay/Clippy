@@ -20,3 +20,8 @@
 "Regex" = "Regular expressions";
 "Mixed" = "Mixed";
 "NotificationsAndSounds" = "Notifications and sounds 􀱁";
+"AppendMode" = "Append mode:";
+"EnableAppendMode" = "Accumulate copies (double-press ⌘C)";
+"EnableAppendModeTooltip" = "When on, pressing ⌘C twice quickly appends the copied text to the most recent clipboard item instead of creating a new one — handy for gathering several snippets into one paste.";
+"AppendModeTimeWindow" = "Time window:";
+"seconds" = "seconds";

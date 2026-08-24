@@ -50,7 +50,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // Bridge FloatingPanel via AppDelegate.
     AppState.shared.appDelegate = self
 
-    Clipboard.shared.onNewCopy { History.shared.add($0) }
+    Clipboard.shared.onNewCopy { item, shouldAppend in
+      History.shared.add(item, shouldAppend: shouldAppend)
+    }
 
     KeyboardShortcuts.onKeyUp(for: .captureRegion) {
       Task { @MainActor in

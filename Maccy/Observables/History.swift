@@ -171,14 +171,56 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
     try? Storage.shared.context.save()
   }
 
+  // Folds `item`'s text onto the most recent different unpinned text item,
+  // updating the live clipboard to the combined text. Returns nil (fall back to
+  // a normal add) when there's nothing suitable to append to.
+  @MainActor
+  private func appendToPreviousItem(_ item: HistoryItem) -> HistoryItemDecorator? {
+    guard let newText = item.text else { return nil }
+
+    let candidate = all
+      .filter { $0.item.pin == nil && $0.item.text != nil && $0.item.text != newText }
+      .max(by: { $0.item.lastCopiedAt < $1.item.lastCopiedAt })
+    guard let target = candidate,
+          let existingText = target.item.text,
+          let stringContent = target.item.contents.first(where: {
+            NSPasteboard.PasteboardType($0.type) == .string
+          }) else {
+      return nil
+    }
+
+    let combinedText = existingText + "\n" + newText
+    stringContent.value = combinedText.data(using: .utf8)
+    target.item.lastCopiedAt = Date.now
+    target.item.numberOfCopies += 1
+    target.item.title = target.item.generateTitle()
+    target.title = target.item.title
+
+    Storage.shared.context.delete(item)
+    items = all
+
+    // Reflect the combined text on the system clipboard without re-recording it.
+    Defaults[.ignoreOnlyNextEvent] = true
+    Defaults[.ignoreEvents] = true
+    Clipboard.shared.copyInMaccy(combinedText)
+
+    return target
+  }
+
   @discardableResult
   @MainActor
-  func add(_ item: HistoryItem) -> HistoryItemDecorator {
+  func add(_ item: HistoryItem, shouldAppend: Bool = false) -> HistoryItemDecorator {
     if #available(macOS 15.0, *) {
       try? History.shared.insertIntoStorage(item)
     } else {
       // On macOS 14 the history item needs to be inserted into storage directly after creating it.
       // It was already inserted after creation in Clipboard.swift
+    }
+
+    // Append mode (double-tap ⌘C): fold this copy onto the most recent
+    // different unpinned text item instead of creating a new entry.
+    if shouldAppend, let appended = appendToPreviousItem(item) {
+      return appended
     }
 
     var removedItemIndex: Int?
