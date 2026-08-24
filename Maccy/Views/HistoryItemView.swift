@@ -84,6 +84,9 @@ struct HistoryItemView: View {
       appState.history.delete(item)
     }
     .contextMenu {
+      Button(NSLocalizedString("tags_edit_menu", comment: "")) {
+        ItemTag.edit(item.item)
+      }
       if item.item.text != nil {
         Menu(NSLocalizedString("paste_as", comment: "")) {
           ForEach(PasteTransform.allCases) { transform in

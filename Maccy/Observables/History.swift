@@ -22,8 +22,12 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
   var searchQuery: String = "" {
     didSet {
       throttler.throttle { [self] in
-        let (typeFilter, query) = ContentType.parse(query: searchQuery)
-        let scope = typeFilter.map { type in all.filter { $0.contentType == type } } ?? all
+        let (typeFilter, afterType) = ContentType.parse(query: searchQuery)
+        let (tagFilter, query) = ItemTag.parse(query: afterType)
+        var scope = typeFilter.map { type in all.filter { $0.contentType == type } } ?? all
+        if let tagFilter {
+          scope = scope.filter { $0.item.tags.contains { $0.caseInsensitiveCompare(tagFilter) == .orderedSame } }
+        }
         updateItems(search.search(string: query, within: scope))
 
         if searchQuery.isEmpty {

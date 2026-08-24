@@ -70,6 +70,7 @@ class HistoryItem {
   var lastCopiedAt: Date = Date.now
   var numberOfCopies: Int = 1
   var pin: String?
+  var tags: [String] = []
   var title = ""
 
   @Relationship(deleteRule: .cascade, inverse: \HistoryItemContent.item)
@@ -95,8 +96,18 @@ class HistoryItem {
 
   func generateTitle() -> String {
     guard image == nil else {
-      Task {
-        self.performTextRecognition()
+      // Capture the image bytes on the current (main) thread, then run the
+      // heavy .accurate OCR off-main and write the title back on-main. Keeps
+      // the copy path smooth and avoids the off-main title data race.
+      if let data = imageData, !AppDelegate.isTesting {
+        Task.detached(priority: .utility) { [weak self] in
+          let recognized = Self.recognizeText(in: data)
+          await MainActor.run {
+            // Skip if the item was deleted while OCR was running.
+            guard let self, !self.isDeleted else { return }
+            self.title = recognized
+          }
+        }
       }
       return ""
     }
@@ -230,34 +241,29 @@ class HistoryItem {
       .compactMap { $0.value }
   }
 
-  private func performTextRecognition() {
-    guard let cgImage = image?.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
-      return
+  // Pure, self-contained OCR — takes image bytes, returns recognized text.
+  // Safe to run off the main thread (touches no model state). Accurate
+  // recognition makes screenshots reliably searchable.
+  nonisolated static func recognizeText(in data: Data) -> String {
+    guard let cgImage = NSImage(data: data)?.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
+      return ""
     }
 
-    let requestHandler = VNImageRequestHandler(cgImage: cgImage)
-    let request = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
-    // Accurate recognition makes screenshots reliably searchable; it runs
-    // async off the copy path, so the extra latency is invisible.
+    let request = VNRecognizeTextRequest()
     request.recognitionLevel = .accurate
     request.usesLanguageCorrection = true
 
     do {
-      try requestHandler.perform([request])
+      try VNImageRequestHandler(cgImage: cgImage).perform([request])
     } catch {
-      print("Unable to perform the request: \(error).")
+      return ""
     }
-  }
 
-  private func recognizeTextHandler(request: VNRequest, error: Error?) {
     guard let observations = request.results as? [VNRecognizedTextObservation] else {
-      return
+      return ""
     }
-
-    let recognizedStrings = observations.compactMap { observation in
-      return observation.topCandidates(1).first?.string
-    }
-
-    self.title = recognizedStrings.joined(separator: "\n")
+    return observations
+      .compactMap { $0.topCandidates(1).first?.string }
+      .joined(separator: "\n")
   }
 }

@@ -83,3 +83,11 @@
 "history_item_image_accessibility_label_no_app" = "Image, %dx%d";
 "history_item_image_accessibility_generic" = "Image";
 "toolbar_remove_paste_stack_action" = "Stop paste stack";
+
+/* Tags */
+"tags_edit_menu" = "Edit Tags…";
+"tags_edit_title" = "Edit Tags";
+"tags_edit_message" = "Comma-separated tags. Search them with tag:name.";
+"tags_edit_placeholder" = "work, urgent, invoice";
+"tags_edit_save" = "Save";
+"tags_edit_cancel" = "Cancel";

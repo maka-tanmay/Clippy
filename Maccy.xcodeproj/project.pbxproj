@@ -107,6 +107,8 @@
 		DA689FCF2C1DEE570009B887 /* AppearanceSettings.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA689FCD2C1DEE570009B887 /* AppearanceSettings.strings */; };
 		DA696BCE240177E800DE80CF /* Sorter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA696BCD240177E800DE80CF /* Sorter.swift */; };
 		FADE0002000000000000C11A /* PasteTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0001000000000000C11A /* PasteTransform.swift */; };
+		FADE0020000000000000C11A /* ItemTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0021000000000000C11A /* ItemTag.swift */; };
+		FADE0022000000000000C11A /* ItemTagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0023000000000000C11A /* ItemTagTests.swift */; };
 		FADE0008000000000000C11A /* Capture.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0007000000000000C11A /* Capture.swift */; };
 		FADE000A000000000000C11A /* PrivacyGuard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE0009000000000000C11A /* PrivacyGuard.swift */; };
 		FADE000E000000000000C11A /* AIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADE000D000000000000C11A /* AIAction.swift */; };
@@ -427,6 +429,8 @@
 		DA689FE12C1DEE6C0009B887 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/AppearanceSettings.strings; sourceTree = "<group>"; };
 		DA696BCD240177E800DE80CF /* Sorter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sorter.swift; sourceTree = "<group>"; };
 		FADE0001000000000000C11A /* PasteTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteTransform.swift; sourceTree = "<group>"; };
+		FADE0021000000000000C11A /* ItemTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTag.swift; sourceTree = "<group>"; };
+		FADE0023000000000000C11A /* ItemTagTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTagTests.swift; sourceTree = "<group>"; };
 		FADE0007000000000000C11A /* Capture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capture.swift; sourceTree = "<group>"; };
 		FADE0009000000000000C11A /* PrivacyGuard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyGuard.swift; sourceTree = "<group>"; };
 		FADE000D000000000000C11A /* AIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAction.swift; sourceTree = "<group>"; };
@@ -775,6 +779,7 @@
 				DA384E85232746D800603999 /* SearchTests.swift */,
 				DA696BD12401EEE900DE80CF /* SorterTests.swift */,
 				FADE0003000000000000C11A /* PasteTransformTests.swift */,
+				FADE0023000000000000C11A /* ItemTagTests.swift */,
 				FADE000B000000000000C11A /* PrivacyGuardTests.swift */,
 				DA360DB41E3DF137005C6F6B /* Info.plist */,
 			);
@@ -890,6 +895,7 @@
 				DAA5ACC92C1BEE8A00B58513 /* SoftwareUpdater.swift */,
 				DA696BCD240177E800DE80CF /* Sorter.swift */,
 				FADE0001000000000000C11A /* PasteTransform.swift */,
+				FADE0021000000000000C11A /* ItemTag.swift */,
 				FADE0007000000000000C11A /* Capture.swift */,
 				FADE0009000000000000C11A /* PrivacyGuard.swift */,
 				FADE000D000000000000C11A /* AIAction.swift */,
@@ -1127,6 +1133,7 @@
 				DA384E86232746D800603999 /* SearchTests.swift in Sources */,
 				DA696BD22401EEE900DE80CF /* SorterTests.swift in Sources */,
 				FADE0004000000000000C11A /* PasteTransformTests.swift in Sources */,
+				FADE0022000000000000C11A /* ItemTagTests.swift in Sources */,
 				FADE000C000000000000C11A /* PrivacyGuardTests.swift in Sources */,
 				CA110ED10000000000000001 /* CollectionSurroundingTests.swift in Sources */,
 				C0FFEE000000000000000003 /* ShortenedTests.swift in Sources */,
@@ -1203,6 +1210,7 @@
 				DAA072D92C41C5AD006DDFD2 /* Footer.swift in Sources */,
 				DA696BCE240177E800DE80CF /* Sorter.swift in Sources */,
 				FADE0002000000000000C11A /* PasteTransform.swift in Sources */,
+				FADE0020000000000000C11A /* ItemTag.swift in Sources */,
 				FADE0008000000000000C11A /* Capture.swift in Sources */,
 				FADE000A000000000000C11A /* PrivacyGuard.swift in Sources */,
 				FADE000E000000000000C11A /* AIAction.swift in Sources */,

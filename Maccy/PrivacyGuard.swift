@@ -26,18 +26,21 @@ enum PrivacyGuard {
   static func expiration(for text: String?) -> Expiration? {
     guard let text, !text.isEmpty else { return nil }
 
-    let range = NSRange(text.startIndex..., in: text)
+    // This runs on the copy hot path (main thread). Secrets are short and
+    // appear early, so scan only a prefix — a multi-MB paste must not hitch.
+    let scanned = text.count > 10_000 ? String(text.prefix(10_000)) : text
+    let range = NSRange(scanned.startIndex..., in: scanned)
 
     for pattern in Defaults[.expireRegexps] {
       if let regex = try? NSRegularExpression(pattern: pattern),
-         regex.firstMatch(in: text, range: range) != nil {
+         regex.firstMatch(in: scanned, range: range) != nil {
         let ttl = TimeInterval(Defaults[.expireAfterMinutes] * 60)
         return Expiration(date: Date.now.addingTimeInterval(ttl), isSecret: false)
       }
     }
 
     if Defaults[.detectSecrets] {
-      for regex in secretPatterns where regex.firstMatch(in: text, range: range) != nil {
+      for regex in secretPatterns where regex.firstMatch(in: scanned, range: range) != nil {
         return Expiration(date: Date.now.addingTimeInterval(secretExpiry), isSecret: true)
       }
     }
