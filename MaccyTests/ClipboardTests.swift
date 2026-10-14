@@ -1,5 +1,6 @@
 import XCTest
 import Defaults
+import Darwin
 @testable import Maccy
 
 // swiftlint:disable type_body_length
@@ -52,6 +53,46 @@ class ClipboardTests: XCTestCase {
     pasteboard.declareTypes([.string], owner: nil)
     pasteboard.setString("bar", forType: .string)
     waitForExpectations(timeout: 2)
+  }
+
+  @MainActor
+  func testScreenshotImportCopiesPNGAndProtectsNewerClipboard() {
+    Defaults[.enabledPasteboardTypes].insert(.png)
+    let png = NSBitmapImageRep(data: image.tiffRepresentation!)!.representation(using: .png, properties: [:])!
+    pasteboard.clearContents()
+    pasteboard.setString("previous copy", forType: .string)
+    ScreenshotWatcher.shared.copyScreenshot(png, expectedChangeCount: pasteboard.changeCount)
+    XCTAssertEqual(pasteboard.data(forType: .png), png)
+    let count = pasteboard.changeCount
+    pasteboard.clearContents()
+    pasteboard.setString("newer copy", forType: .string)
+    ScreenshotWatcher.shared.copyScreenshot(png, expectedChangeCount: count)
+    XCTAssertEqual(pasteboard.string(forType: .string), "newer copy")
+    Defaults[.ignoreEvents] = true
+    ScreenshotWatcher.shared.copyScreenshot(png, expectedChangeCount: pasteboard.changeCount)
+    XCTAssertEqual(pasteboard.string(forType: .string), "newer copy")
+    Defaults[.ignoreEvents] = false
+    Defaults[.enabledPasteboardTypes].remove(.png)
+    ScreenshotWatcher.shared.copyScreenshot(png, expectedChangeCount: pasteboard.changeCount)
+    XCTAssertEqual(pasteboard.string(forType: .string), "newer copy")
+  }
+
+  func testScreenshotRecognitionWithoutSpotlight() throws {
+    let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: folder) }
+    let file = folder.appendingPathComponent("capture.png")
+    let png = NSBitmapImageRep(data: image.tiffRepresentation!)!.representation(using: .png, properties: [:])!
+    try png.write(to: file)
+    XCTAssertNil(ScreenshotWatcher.screenshotPNG(at: file), "Ordinary images must not be imported")
+    let marker = try PropertyListSerialization.data(fromPropertyList: true, format: .binary, options: 0)
+    let result = marker.withUnsafeBytes {
+      setxattr(file.path, "com.apple.metadata:kMDItemIsScreenCapture", $0.baseAddress, $0.count, 0, 0)
+    }
+    XCTAssertEqual(result, 0)
+    XCTAssertNotNil(ScreenshotWatcher.screenshotPNG(at: file))
+    try Data("incomplete image".utf8).write(to: file)
+    XCTAssertNil(ScreenshotWatcher.screenshotPNG(at: file))
   }
 
   func testIgnoreStringWithOnlySpaces() {

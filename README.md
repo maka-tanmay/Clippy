@@ -42,7 +42,7 @@ Notarized downloads and `brew install maka-tanmay/tap/clippy` are coming with th
 4. <kbd>⌥</kbd><kbd>P</kbd> pins/unpins an item; <kbd>⌥</kbd><kbd>⌫</kbd> deletes one. In Preferences → Pins you can give a pinned item an alias, edit its content, and record a **global shortcut** that pastes it from anywhere — instant snippets.
 5. Right-click any text item → **Paste As** to paste it transformed: UPPERCASE, lowercase, trimmed, with URL tracking parameters stripped, or as pretty-printed JSON.
 6. <kbd>⇧</kbd><kbd>⌘</kbd><kbd>2</kbd> captures a screen region straight to your clipboard (grant Screen Recording on first use). Search its text later with `type:image`.
-   Taking screenshots with macOS's own <kbd>⇧</kbd><kbd>⌘</kbd><kbd>3</kbd>/<kbd>⇧</kbd><kbd>⌘</kbd><kbd>4</kbd>? Those save files without copying anything. Enable **Import system screenshots** in Preferences → General and they'll flow into Clippy's history automatically (or hold <kbd>⌃</kbd> while shooting to send one to the clipboard).
+   Taking screenshots with macOS's own <kbd>⇧</kbd><kbd>⌘</kbd><kbd>3</kbd>/<kbd>⇧</kbd><kbd>⌘</kbd><kbd>4</kbd>? Enable **Copy system screenshots to clipboard** in Preferences → General and choose your screenshots folder. New screenshots copy automatically and enter history without Spotlight. Loading runs in the background; imports wait for dragging to finish and never replace a newer copy. Pausing Clippy or disabling PNG history also disables automatic screenshot copying.
 7. <kbd>⌥</kbd><kbd>⌘</kbd><kbd>⌫</kbd> clears unpinned history; add <kbd>⇧</kbd> to clear everything.
 8. <kbd>⌥</kbd>-click the menu icon to pause Clippy; <kbd>⌥</kbd><kbd>⇧</kbd>-click to ignore only the next copy.
 9. <kbd>⌘</kbd><kbd>,</kbd> opens Preferences.
